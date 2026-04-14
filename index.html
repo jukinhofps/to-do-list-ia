@@ -300,29 +300,46 @@
     </div>
 
     <script>
-        let tasks = [];
+        // ==================== VARIÁVEIS GLOBAIS ====================
+        let tasks = [];  // Array que armazena todas as tarefas
 
+        // Seleção dos elementos do DOM (melhor performance ao selecionar uma única vez)
         const taskInput = document.getElementById('task-input');
         const prioritySelect = document.getElementById('priority-select');
         const addBtn = document.getElementById('add-btn');
         const taskList = document.getElementById('task-list');
         const taskCount = document.getElementById('task-count');
 
+        // ==================== FUNÇÕES ====================
+
+        /**
+         * Salva o array de tarefas no localStorage do navegador
+         * Permite que as tarefas permaneçam mesmo após fechar o navegador
+         */
         function saveToLocalStorage() {
             localStorage.setItem('collegeTodoTasks', JSON.stringify(tasks));
         }
 
+        /**
+         * Carrega as tarefas salvas anteriormente do localStorage
+         * Executada automaticamente quando a página é carregada
+         */
         function loadFromLocalStorage() {
             const saved = localStorage.getItem('collegeTodoTasks');
             if (saved) {
-                tasks = JSON.parse(saved);
-                renderTasks();
+                tasks = JSON.parse(saved);   // Converte a string JSON de volta para array
+                renderTasks();               // Atualiza a interface com as tarefas carregadas
             }
         }
 
+        /**
+         * Renderiza (desenha) todas as tarefas na tela
+         * Esta função é chamada sempre que há alguma alteração na lista
+         */
         function renderTasks() {
-            taskList.innerHTML = '';
+            taskList.innerHTML = '';   // Limpa a lista antes de renderizar novamente
 
+            // Verifica se não há tarefas cadastradas
             if (tasks.length === 0) {
                 taskList.innerHTML = `
                     <div class="empty-state">
@@ -335,6 +352,7 @@
                 return;
             }
 
+            // Percorre todas as tarefas e cria os elementos HTML
             tasks.forEach((task, index) => {
                 const li = document.createElement('li');
                 li.className = `task-item ${task.priority} ${task.done ? 'done' : ''}`;
@@ -348,17 +366,17 @@
                     <button class="delete-btn" title="Excluir">🗑️</button>
                 `;
 
-                // Marcar como concluída
+                // Evento: Marcar tarefa como concluída
                 li.querySelector('.done-checkbox').addEventListener('change', () => {
-                    tasks[index].done = !tasks[index].done;
+                    tasks[index].done = !tasks[index].done;  // Alterna entre feito/não feito
                     saveToLocalStorage();
-                    renderTasks();
+                    renderTasks();   // Atualiza a tela
                 });
 
-                // Excluir tarefa
+                // Evento: Excluir tarefa
                 li.querySelector('.delete-btn').addEventListener('click', () => {
                     if (confirm('Tem certeza que deseja excluir esta tarefa?')) {
-                        tasks.splice(index, 1);
+                        tasks.splice(index, 1);   // Remove a tarefa do array
                         saveToLocalStorage();
                         renderTasks();
                     }
@@ -367,33 +385,40 @@
                 taskList.appendChild(li);
             });
 
+            // Atualiza o contador no rodapé
             taskCount.textContent = tasks.length;
         }
 
+        /**
+         * Adiciona uma nova tarefa à lista
+         * Valida se o campo não está vazio e cria o objeto da tarefa
+         */
         function addTask() {
-            const text = taskInput.value.trim();
+            const text = taskInput.value.trim();   // Remove espaços em branco
             
+            // Validação: não permite adicionar tarefa vazia
             if (text === '') {
-                taskInput.style.borderColor = '#ef4444';
+                taskInput.style.borderColor = '#ef4444';   // Feedback visual de erro
                 setTimeout(() => taskInput.style.borderColor = '#e2e8f0', 800);
                 taskInput.focus();
                 return;
             }
 
+            // Cria o objeto da nova tarefa e adiciona no início do array
             tasks.unshift({
-                id: Date.now(),
+                id: Date.now(),                    // ID único baseado no timestamp
                 text: text,
-                priority: prioritySelect.value,
+                priority: prioritySelect.value,    // 'alta', 'media' ou 'baixa'
                 done: false
             });
 
             saveToLocalStorage();
             renderTasks();
 
-            // Limpar input
+            // Limpa o campo de input após adicionar
             taskInput.value = '';
 
-            // Feedback visual
+            // Feedback visual de sucesso no botão
             const originalText = addBtn.textContent;
             addBtn.textContent = '✅ Adicionado!';
             addBtn.style.backgroundColor = '#10b981';
@@ -403,14 +428,17 @@
             }, 1400);
         }
 
-        // Eventos
+        // ==================== EVENTOS ====================
+
+        // Clique no botão "Adicionar Tarefa"
         addBtn.addEventListener('click', addTask);
 
+        // Pressionar Enter no campo de texto também adiciona a tarefa
         taskInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') addTask();
         });
 
-        // Carregar ao iniciar
+        // Carrega as tarefas salvas quando a página termina de carregar
         window.addEventListener('load', loadFromLocalStorage);
     </script>
 </body>
