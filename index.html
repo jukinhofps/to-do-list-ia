@@ -9,29 +9,42 @@
 
         :root {
             --primary: #4f46e5;
+            --bg-body: linear-gradient(135deg, #f8fafc, #e0e7ff);
+            --bg-container: #ffffff;
+            --text-primary: #1e2937;
+            --text-secondary: #64748b;
+            --bg-form: #f8fafc;
+            --border-color: #e2e8f0;
+            --card-bg: #ffffff;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        [data-theme="dark"] {
+            --bg-body: linear-gradient(135deg, #0f172a, #1e2937);
+            --bg-container: #1e2937;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --bg-form: #334155;
+            --border-color: #475569;
+            --card-bg: #334155;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f8fafc, #e0e7ff);
+            background: var(--bg-body);
             min-height: 100vh;
-            color: #1e2937;
-            padding: 1rem 0.8rem; /* menor padding no mobile */
+            color: var(--text-primary);
+            padding: 1rem 0.8rem;
+            transition: all 0.4s ease;
         }
 
         .container {
-            max-width: 700px;
+            max-width: 720px;
             margin: 0 auto;
-            background: white;
+            background: var(--bg-container);
             border-radius: 20px;
-            box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1),
-                        0 8px 10px -6px rgb(0 0 0 / 0.1);
+            box-shadow: 0 10px 30px -8px rgb(0 0 0 / 0.12);
             overflow: hidden;
         }
 
@@ -39,344 +52,494 @@
             background: var(--primary);
             color: white;
             padding: 1.8rem 1.5rem 1.4rem;
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        header h1 {
-            font-size: 1.9rem;
-            font-weight: 600;
+        header h1 { font-size: 1.95rem; font-weight: 600; }
+        header p { opacity: 0.92; margin-top: 0.25rem; font-size: 1rem; }
+
+        .settings-btn {
+            background: rgba(255,255,255,0.22);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.7);
+            border-radius: 50%;
+            width: 50px; height: 50px;
+            font-size: 1.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        header p {
-            opacity: 0.9;
-            font-size: 1rem;
-            margin-top: 0.3rem;
+        .settings-btn:hover {
+            transform: rotate(25deg);
+            background: rgba(255,255,255,0.35);
         }
 
         .form-container {
-            padding: 1.8rem 1.5rem;
-            background: #f8fafc;
-            border-bottom: 1px solid #e2e8f0;
+            padding: 2rem 1.6rem;
+            background: var(--bg-form);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .form-group {
             display: flex;
-            flex-direction: column;     /* empilha no mobile */
-            gap: 1rem;
-        }
-
-        .input-wrapper {
-            flex: 1;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
         label {
             display: block;
-            margin-bottom: 0.4rem;
-            font-size: 0.95rem;
+            margin-bottom: 0.45rem;
             font-weight: 500;
-            color: #475569;
+            color: var(--text-secondary);
+            font-size: 0.96rem;
         }
 
         input[type="text"] {
             width: 100%;
-            padding: 14px 16px;
-            font-size: 1.1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
+            padding: 16px 18px;
+            font-size: 1.2rem;
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
             outline: none;
-            transition: all 0.3s ease;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            transition: all 0.3s;
         }
 
         input[type="text"]:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.18);
         }
 
-        select {
+        .row {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .row > div {
+            flex: 1;
+            min-width: 160px;
+        }
+
+        select, input[type="date"] {
             width: 100%;
-            padding: 14px 16px;
+            padding: 15px 16px;
             font-size: 1.1rem;
-            border: 2px solid #e2e8f0;
+            border: 2px solid var(--border-color);
             border-radius: 12px;
-            background: white;
+            background: var(--card-bg);
+            color: var(--text-primary);
             outline: none;
             cursor: pointer;
         }
 
+        .buttons-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 0.6rem;
+        }
+
         .btn-add {
-            width: 100%;
-            padding: 14px;
+            flex: 2;
+            padding: 16px;
             background: var(--primary);
             color: white;
             border: none;
             border-radius: 12px;
-            font-size: 1.15rem;
+            font-size: 1.18rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 0.5rem;
         }
 
         .btn-add:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgb(79 70 229 / 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px -4px rgb(79 70 229 / 0.35);
         }
+
+        .btn-clear {
+            flex: 1;
+            padding: 16px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-clear:hover { background: #dc2626; }
 
         .task-list {
             list-style: none;
-            max-height: 65vh;           /* melhor altura em mobile */
+            max-height: 55vh;
             overflow-y: auto;
-            padding: 1rem 1.5rem 1.5rem;
+            padding: 1.3rem 1.6rem 1.8rem;
         }
 
         .task-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 1.1rem 1.3rem;
-            background: white;
+            gap: 14px;
+            padding: 1.3rem 1.4rem;
+            background: var(--card-bg);
             border-radius: 16px;
-            margin-bottom: 0.8rem;
-            box-shadow: 0 2px 6px rgb(0 0 0 / 0.06);
-            transition: all 0.3s ease;
+            margin-bottom: 0.9rem;
+            box-shadow: 0 3px 10px rgb(0 0 0 / 0.08);
             border-left: 6px solid transparent;
+            transition: all 0.3s ease;
         }
 
         .task-item:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 15px -3px rgb(0 0 0 / 0.1);
+            box-shadow: 0 8px 18px rgb(0 0 0 / 0.12);
         }
 
-        /* Estilização condicional por prioridade */
         .task-item.alta  { border-left-color: #ef4444; }
         .task-item.media { border-left-color: #f59e0b; }
         .task-item.baixa { border-left-color: #10b981; }
 
-        .done-checkbox {
-            width: 26px;
-            height: 26px;
-            accent-color: var(--primary);
+        .done-checkbox { 
+            width: 28px; 
+            height: 28px; 
+            accent-color: var(--primary); 
             cursor: pointer;
             flex-shrink: 0;
         }
 
-        .task-text {
-            flex: 1;
-            font-size: 1.08rem;
-            line-height: 1.4;
-            word-break: break-word; /* quebra palavras longas */
+        .task-text { 
+            flex: 1; 
+            font-size: 1.17rem; 
+            line-height: 1.45; 
+            word-break: break-word;
         }
 
-        .task-item.done .task-text {
-            text-decoration: line-through;
-            color: #64748b;
-            opacity: 0.8;
+        .task-item.done .task-text { 
+            text-decoration: line-through; 
+            opacity: 0.78; 
         }
 
-        .priority-badge {
+        .due-date, .priority-badge {
+            font-size: 0.87rem;
             padding: 5px 12px;
             border-radius: 9999px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
             white-space: nowrap;
             flex-shrink: 0;
         }
 
-        .priority-alta  { background: #ef4444; color: white; }
-        .priority-media { background: #f59e0b; color: #1e2937; }
-        .priority-baixa { background: #10b981; color: white; }
-
         .delete-btn {
+            width: 42px; 
+            height: 42px;
+            border: none;
             background: #f1f5f9;
             color: #64748b;
-            border: none;
-            width: 38px;
-            height: 38px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.35rem;
+            font-size: 1.45rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s;
             flex-shrink: 0;
+        }
+
+        [data-theme="dark"] .delete-btn { 
+            background: #475569; 
+            color: #cbd5e1; 
         }
 
         .delete-btn:hover {
             background: #fee2e2;
             color: #ef4444;
-            transform: scale(1.1);
+            transform: scale(1.08);
         }
 
         .empty-state {
             text-align: center;
-            padding: 3rem 1.5rem;
-            color: #64748b;
+            padding: 4rem 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* ===================== PAGINAÇÃO ===================== */
+        .pagination-controls {
+            padding: 1.4rem 1.6rem;
+            background: var(--bg-form);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .pagination-controls button {
+            padding: 10px 16px;
+            border: 2px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            min-width: 44px;
+        }
+
+        .pagination-controls button:hover:not(:disabled) {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .pagination-controls button.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .pagination-controls button:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
         }
 
         footer {
+            padding: 1.3rem 1.6rem;
+            background: var(--bg-form);
+            border-top: 1px solid var(--border-color);
             text-align: center;
-            padding: 1.4rem 1rem;
-            font-size: 0.9rem;
-            color: #64748b;
-            border-top: 1px solid #e2e8f0;
+            font-size: 0.93rem;
+            color: var(--text-secondary);
         }
 
-        /* Scrollbar customizada */
-        .task-list::-webkit-scrollbar {
-            width: 6px;
+        /* ===================== MODAL ===================== */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.78);
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
         }
-        .task-list::-webkit-scrollbar-thumb {
-            background: #c1d0e0;
+
+        .modal-content {
+            background: var(--bg-container);
+            color: var(--text-primary);
+            width: 92%;
+            max-width: 400px;
             border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 30px -10px rgb(0 0 0 / 0.2);
         }
 
-        /* ===================== MEDIA QUERIES ===================== */
-        @media (min-width: 640px) {
-            body {
-                padding: 2rem 1rem;
-            }
+        .modal h2 {
+            margin-bottom: 1.6rem;
+            font-size: 1.45rem;
+        }
 
-            .form-group {
-                flex-direction: row;     /* volta para lado a lado em telas maiores */
-                align-items: end;
-            }
+        .modal label {
+            display: block;
+            margin: 1.4rem 0 0.6rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
 
-            select {
-                min-width: 160px;
-                width: auto;
-            }
+        .modal input[type="color"] {
+            width: 100%;
+            height: 55px;
+            padding: 6px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            cursor: pointer;
+        }
 
-            .btn-add {
-                width: auto;
-                padding: 14px 32px;
-                margin-top: 0;
-            }
-
-            header h1 {
-                font-size: 2.2rem;
-            }
-
-            .task-list {
-                padding: 1.2rem 2rem 2rem;
-            }
+        .modal select {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 1.1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            background: var(--card-bg);
+            color: var(--text-primary);
         }
     </style>
 </head>
-<body>
+<body data-theme="light">
     <div class="container">
         <header>
-            <h1>📋 Minhas Tarefas</h1>
-            <p>Organize com prioridade • Projeto Faculdade</p>
+            <div>
+                <h1>📋 Minhas Tarefas</h1>
+                <p>Organize com prioridade • Projeto Faculdade</p>
+            </div>
+            <button id="settings-btn" class="settings-btn" title="Configurações">⚙️</button>
         </header>
 
         <div class="form-container">
             <div class="form-group">
-                <div class="input-wrapper">
+                <div>
                     <label for="task-input">Descrição da tarefa</label>
                     <input type="text" id="task-input" placeholder="Ex: Estudar para a prova de Matemática" autocomplete="off">
                 </div>
-                
-                <div>
-                    <label for="priority-select">Prioridade</label>
-                    <select id="priority-select">
-                        <option value="alta">🔴 Alta</option>
-                        <option value="media" selected>🟠 Média</option>
-                        <option value="baixa">🟢 Baixa</option>
-                    </select>
+
+                <div class="row">
+                    <div>
+                        <label for="priority-select">Prioridade</label>
+                        <select id="priority-select">
+                            <option value="alta">🔴 Alta</option>
+                            <option value="media" selected>🟠 Média</option>
+                            <option value="baixa">🟢 Baixa</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="due-date-input">Vencimento (opcional)</label>
+                        <input type="date" id="due-date-input">
+                    </div>
                 </div>
 
-                <button id="add-btn" class="btn-add">+ Adicionar Tarefa</button>
+                <div class="buttons-row">
+                    <button id="add-btn" class="btn-add">+ Adicionar Tarefa</button>
+                    <button id="clear-done-btn" class="btn-clear">🗑️ Remover concluídas</button>
+                </div>
             </div>
         </div>
 
         <ul id="task-list" class="task-list"></ul>
+        <div id="pagination" class="pagination-controls"></div>
 
         <footer>
             Total de tarefas: <strong id="task-count">0</strong>
         </footer>
     </div>
 
-    <script>
-        // ==================== VARIÁVEIS GLOBAIS ====================
-        let tasks = [];  // Array que armazena todas as tarefas
+    <!-- Modal de Configurações -->
+    <div id="config-modal" class="modal">
+        <div class="modal-content">
+            <h2>⚙️ Configurações</h2>
+            
+            <label for="color-picker">Cor principal</label>
+            <input type="color" id="color-picker" value="#4f46e5">
 
-        // Seleção dos elementos do DOM (melhor performance ao selecionar uma única vez)
+            <label for="theme-select">Tema do aplicativo</label>
+            <select id="theme-select">
+                <option value="light">☀️ Modo Claro</option>
+                <option value="dark">🌙 Modo Escuro</option>
+            </select>
+
+            <label for="per-page">Tarefas por página</label>
+            <select id="per-page">
+                <option value="5">5 tarefas</option>
+                <option value="8" selected>8 tarefas</option>
+                <option value="10">10 tarefas</option>
+                <option value="15">15 tarefas</option>
+                <option value="20">20 tarefas</option>
+            </select>
+
+            <div style="margin-top: 2rem; text-align: center; color: var(--text-secondary); font-size: 0.95rem;">
+                As alterações são aplicadas automaticamente
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let tasks = [];
+        let currentPage = 1;
+        let tasksPerPage = 8;
+
+        let config = {
+            primaryColor: '#4f46e5',
+            theme: 'light',
+            tasksPerPage: 8
+        };
+
+        // Elementos
         const taskInput = document.getElementById('task-input');
         const prioritySelect = document.getElementById('priority-select');
+        const dueDateInput = document.getElementById('due-date-input');
         const addBtn = document.getElementById('add-btn');
+        const clearDoneBtn = document.getElementById('clear-done-btn');
         const taskList = document.getElementById('task-list');
         const taskCount = document.getElementById('task-count');
+        const paginationEl = document.getElementById('pagination');
+        const settingsBtn = document.getElementById('settings-btn');
+        const configModal = document.getElementById('config-modal');
+        const colorPicker = document.getElementById('color-picker');
+        const themeSelect = document.getElementById('theme-select');
+        const perPageSelect = document.getElementById('per-page');
 
-        // ==================== FUNÇÕES ====================
+        function loadConfig() {
+            const saved = localStorage.getItem('todoConfig');
+            if (saved) config = JSON.parse(saved);
 
-        /**
-         * Salva o array de tarefas no localStorage do navegador
-         * Permite que as tarefas permaneçam mesmo após fechar o navegador
-         */
+            document.documentElement.style.setProperty('--primary', config.primaryColor);
+            document.body.dataset.theme = config.theme;
+            tasksPerPage = config.tasksPerPage;
+        }
+
+        function saveConfig() {
+            localStorage.setItem('todoConfig', JSON.stringify(config));
+        }
+
         function saveToLocalStorage() {
             localStorage.setItem('collegeTodoTasks', JSON.stringify(tasks));
         }
 
-        /**
-         * Carrega as tarefas salvas anteriormente do localStorage
-         * Executada automaticamente quando a página é carregada
-         */
         function loadFromLocalStorage() {
             const saved = localStorage.getItem('collegeTodoTasks');
-            if (saved) {
-                tasks = JSON.parse(saved);   // Converte a string JSON de volta para array
-                renderTasks();               // Atualiza a interface com as tarefas carregadas
-            }
+            if (saved) tasks = JSON.parse(saved);
         }
 
-        /**
-         * Renderiza (desenha) todas as tarefas na tela
-         * Esta função é chamada sempre que há alguma alteração na lista
-         */
-        function renderTasks() {
-            taskList.innerHTML = '';   // Limpa a lista antes de renderizar novamente
+        function formatDueDate(dueDate) {
+            if (!dueDate) return '';
+            const date = new Date(dueDate);
+            return date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
+        }
 
-            // Verifica se não há tarefas cadastradas
+        function renderTasks() {
+            taskList.innerHTML = '';
+
             if (tasks.length === 0) {
-                taskList.innerHTML = `
-                    <div class="empty-state">
-                        <p style="font-size: 2.5rem; margin-bottom: 1rem;">📭</p>
-                        <p style="font-size: 1.2rem;">Nenhuma tarefa ainda...</p>
-                        <p style="margin-top: 0.5rem;">Adicione sua primeira tarefa acima!</p>
-                    </div>
-                `;
+                taskList.innerHTML = `<div class="empty-state"><p style="font-size:2.6rem;margin-bottom:1rem;">📭</p><p>Nenhuma tarefa ainda...</p><p style="margin-top:0.6rem;">Adicione acima!</p></div>`;
                 taskCount.textContent = '0';
+                paginationEl.innerHTML = '';
                 return;
             }
 
-            // Percorre todas as tarefas e cria os elementos HTML
-            tasks.forEach((task, index) => {
+            const totalPages = Math.ceil(tasks.length / tasksPerPage);
+            if (currentPage > totalPages) currentPage = totalPages || 1;
+
+            const start = (currentPage - 1) * tasksPerPage;
+            const paginated = tasks.slice(start, start + tasksPerPage);
+
+            paginated.forEach(task => {
+                const isOverdue = task.dueDate && !task.done && 
+                    (new Date(task.dueDate).setHours(0,0,0,0) < new Date().setHours(0,0,0,0));
+
                 const li = document.createElement('li');
-                li.className = `task-item ${task.priority} ${task.done ? 'done' : ''}`;
-                
+                li.className = `task-item ${task.priority} ${task.done ? 'done' : ''} ${isOverdue ? 'overdue' : ''}`;
+
                 li.innerHTML = `
                     <input type="checkbox" class="done-checkbox" ${task.done ? 'checked' : ''}>
                     <span class="task-text">${task.text}</span>
-                    <span class="priority-badge priority-${task.priority}">
-                        ${task.priority === 'alta' ? 'Alta' : task.priority === 'media' ? 'Média' : 'Baixa'}
-                    </span>
-                    <button class="delete-btn" title="Excluir">🗑️</button>
+                    ${task.dueDate ? `<span class="due-date">📅 ${formatDueDate(task.dueDate)}</span>` : ''}
+                    <span class="priority-badge priority-${task.priority}">${task.priority === 'alta' ? 'Alta' : task.priority === 'media' ? 'Média' : 'Baixa'}</span>
+                    <button class="delete-btn">🗑️</button>
                 `;
 
-                // Evento: Marcar tarefa como concluída
                 li.querySelector('.done-checkbox').addEventListener('change', () => {
-                    tasks[index].done = !tasks[index].done;  // Alterna entre feito/não feito
+                    const idx = tasks.findIndex(t => t.id === task.id);
+                    if (idx > -1) tasks[idx].done = !tasks[idx].done;
                     saveToLocalStorage();
-                    renderTasks();   // Atualiza a tela
+                    renderTasks();
                 });
 
-                // Evento: Excluir tarefa
                 li.querySelector('.delete-btn').addEventListener('click', () => {
-                    if (confirm('Tem certeza que deseja excluir esta tarefa?')) {
-                        tasks.splice(index, 1);   // Remove a tarefa do array
+                    if (confirm('Excluir esta tarefa?')) {
+                        const idx = tasks.findIndex(t => t.id === task.id);
+                        if (idx > -1) tasks.splice(idx, 1);
                         saveToLocalStorage();
                         renderTasks();
                     }
@@ -385,61 +548,126 @@
                 taskList.appendChild(li);
             });
 
-            // Atualiza o contador no rodapé
             taskCount.textContent = tasks.length;
+            renderPagination(totalPages);
         }
 
-        /**
-         * Adiciona uma nova tarefa à lista
-         * Valida se o campo não está vazio e cria o objeto da tarefa
-         */
-        function addTask() {
-            const text = taskInput.value.trim();   // Remove espaços em branco
-            
-            // Validação: não permite adicionar tarefa vazia
-            if (text === '') {
-                taskInput.style.borderColor = '#ef4444';   // Feedback visual de erro
-                setTimeout(() => taskInput.style.borderColor = '#e2e8f0', 800);
-                taskInput.focus();
+        function renderPagination(totalPages) {
+            if (totalPages <= 1) {
+                paginationEl.innerHTML = '';
                 return;
             }
 
-            // Cria o objeto da nova tarefa e adiciona no início do array
+            let html = `<button id="prev-btn" ${currentPage === 1 ? 'disabled' : ''}>← Anterior</button>`;
+
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<button class="${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+            }
+
+            html += `<button id="next-btn" ${currentPage === totalPages ? 'disabled' : ''}>Próxima →</button>`;
+
+            paginationEl.innerHTML = html;
+
+            // Eventos de paginação
+            document.getElementById('prev-btn')?.addEventListener('click', () => {
+                if (currentPage > 1) { currentPage--; renderTasks(); }
+            });
+
+            document.getElementById('next-btn')?.addEventListener('click', () => {
+                if (currentPage < totalPages) { currentPage++; renderTasks(); }
+            });
+
+            paginationEl.querySelectorAll('[data-page]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currentPage = parseInt(btn.dataset.page);
+                    renderTasks();
+                });
+            });
+        }
+
+        function addTask() {
+            const text = taskInput.value.trim();
+            if (!text) {
+                taskInput.style.borderColor = '#ef4444';
+                setTimeout(() => taskInput.style.borderColor = '', 800);
+                return;
+            }
+
             tasks.unshift({
-                id: Date.now(),                    // ID único baseado no timestamp
-                text: text,
-                priority: prioritySelect.value,    // 'alta', 'media' ou 'baixa'
+                id: Date.now(),
+                text,
+                priority: prioritySelect.value,
+                dueDate: dueDateInput.value || null,
                 done: false
             });
 
             saveToLocalStorage();
+            currentPage = 1;
             renderTasks();
 
-            // Limpa o campo de input após adicionar
             taskInput.value = '';
+            dueDateInput.value = '';
 
-            // Feedback visual de sucesso no botão
-            const originalText = addBtn.textContent;
+            const original = addBtn.textContent;
             addBtn.textContent = '✅ Adicionado!';
-            addBtn.style.backgroundColor = '#10b981';
-            setTimeout(() => {
-                addBtn.textContent = originalText;
-                addBtn.style.backgroundColor = '';
-            }, 1400);
+            setTimeout(() => addBtn.textContent = original, 1400);
+        }
+
+        function clearDoneTasks() {
+            const count = tasks.filter(t => t.done).length;
+            if (count === 0) return;
+            if (confirm(`Remover ${count} tarefa(s) concluída(s)?`)) {
+                tasks = tasks.filter(t => !t.done);
+                saveToLocalStorage();
+                currentPage = 1;
+                renderTasks();
+            }
         }
 
         // ==================== EVENTOS ====================
-
-        // Clique no botão "Adicionar Tarefa"
         addBtn.addEventListener('click', addTask);
+        taskInput.addEventListener('keypress', e => { if (e.key === 'Enter') addTask(); });
+        clearDoneBtn.addEventListener('click', clearDoneTasks);
 
-        // Pressionar Enter no campo de texto também adiciona a tarefa
-        taskInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') addTask();
+        settingsBtn.addEventListener('click', () => {
+            colorPicker.value = config.primaryColor;
+            themeSelect.value = config.theme;
+            perPageSelect.value = config.tasksPerPage;
+            configModal.style.display = 'flex';
         });
 
-        // Carrega as tarefas salvas quando a página termina de carregar
-        window.addEventListener('load', loadFromLocalStorage);
+        // Alterações em tempo real no modal
+        colorPicker.addEventListener('input', () => {
+            config.primaryColor = colorPicker.value;
+            document.documentElement.style.setProperty('--primary', config.primaryColor);
+            saveConfig();
+        });
+
+        themeSelect.addEventListener('change', () => {
+            config.theme = themeSelect.value;
+            document.body.dataset.theme = config.theme;
+            saveConfig();
+        });
+
+        perPageSelect.addEventListener('change', () => {
+            config.tasksPerPage = parseInt(perPageSelect.value);
+            tasksPerPage = config.tasksPerPage;
+            currentPage = 1;
+            saveConfig();
+            renderTasks();
+        });
+
+        // Fechar modal
+        configModal.addEventListener('click', (e) => {
+            if (e.target === configModal) configModal.style.display = 'none';
+        });
+
+        // Inicialização
+        window.addEventListener('load', () => {
+            loadConfig();
+            loadFromLocalStorage();
+            renderTasks();
+        });
     </script>
 </body>
 </html>
