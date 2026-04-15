@@ -133,11 +133,3 @@ localStorage.setItem('collegeTodoTasks', JSON.stringify(tasks));
 Este projeto é apenas para fins educacionais.
 
 ```
-
----
-
-Se quiser, posso também:
-- deixar com **badges do GitHub (deploy, linguagem, etc.)**
-- adicionar **GIF demonstrando o app**
-- ou adaptar para um nível mais profissional (portfólio)
-```
