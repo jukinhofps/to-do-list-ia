@@ -45,11 +45,9 @@ Desenvolver uma aplicação web funcional que permita ao usuário gerenciar tare
 
 ```
 
-📁 projeto-todo-list
+📁 projeto-to-do-list-ia
 │
 ├── index.html
-├── style.css
-├── script.js
 └── README.md
 
 ````
