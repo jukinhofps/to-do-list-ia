@@ -131,5 +131,3 @@ localStorage.setItem('collegeTodoTasks', JSON.stringify(tasks));
 ## 📄 Licença
 
 Este projeto é apenas para fins educacionais.
-
-```
